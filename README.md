@@ -1,4 +1,4 @@
-# vue-wechat-auth
+# vue-template
 
 # 运行项目
 
