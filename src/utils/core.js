@@ -3,17 +3,30 @@
 //生成guid
 export function guid() {
   let S4 = function() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
-  }
-  return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4()
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  );
 }
 
 // 生成随机数
 export function random(min, max) {
-  const choice = max - min + 1
-  return Math.floor(min + Math.random() * choice)
+  const choice = max - min + 1;
+  return Math.floor(min + Math.random() * choice);
 }
-var num = random(2, 10)
+var num = random(2, 10);
 
 /**
  * 滚动,先慢后快，缓动的效果比easeIn动画明显
@@ -23,21 +36,21 @@ var num = random(2, 10)
  * @param {Function} callback  滚动完成之后的回调
  */
 export function scroll(element, target, duration = 500, callback = () => {}) {
-  const startTime = Date.now()
+  const startTime = Date.now();
   const move = () => {
-    const passTime = Date.now() - startTime
-    const currentPosition = element.scrollTop
-    const residueDistance = target - currentPosition
-    const step = residueDistance / 10
-    element.scrollTop = currentPosition + step
+    const passTime = Date.now() - startTime;
+    const currentPosition = element.scrollTop;
+    const residueDistance = target - currentPosition;
+    const step = residueDistance / 10;
+    element.scrollTop = currentPosition + step;
     if (passTime < duration) {
-      window.requestAnimationFrame(move)
+      window.requestAnimationFrame(move);
     } else {
-      element.scrollTop = target
-      callback()
+      element.scrollTop = target;
+      callback();
     }
-  }
-  move()
+  };
+  move();
 }
 
 /**
@@ -47,38 +60,45 @@ export function scroll(element, target, duration = 500, callback = () => {}) {
  * @param {Number} interval  每次运动的时间间隔
  * @param {Function} callback  动画完成之后的回调
  */
-export function animate(element, properties, interval = 20, callback = () => {}) {
-  clearInterval(element.timer)
+export function animate(
+  element,
+  properties,
+  interval = 20,
+  callback = () => {}
+) {
+  clearInterval(element.timer);
   element.timer = setInterval(() => {
-    let flag = true
+    let flag = true;
     for (const property in properties) {
-      const current = parseInt(window.getComputedStyle(element)[property])
-      const target = properties[property]
-      let step = (target - current) / 10
-      step = step > 0 ? Math.ceil(step) : Math.floor(step)
-      element.style[property] = current + step + 'px'
+      const current = parseInt(window.getComputedStyle(element)[property]);
+      const target = properties[property];
+      let step = (target - current) / 10;
+      step = step > 0 ? Math.ceil(step) : Math.floor(step);
+      element.style[property] = current + step + "px";
       if (current != target) {
-        flag = false
+        flag = false;
       }
     }
     if (flag) {
-      clearInterval(element.timer)
-      callback()
+      clearInterval(element.timer);
+      callback();
     }
-  }, interval)
+  }, interval);
 }
 
 // 用于需要在get请求中传递数组的情况
 export function paramsSerializer(params = {}) {
-  const paramArr = []
+  const paramArr = [];
   for (const [key, value] of Object.entries(params)) {
     if (Array.isArray(value)) {
-      value.forEach(item => paramArr.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`))
+      value.forEach(item =>
+        paramArr.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`)
+      );
     } else {
-      paramArr.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      paramArr.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
     }
   }
-  return paramArr.join('&')
+  return paramArr.join("&");
 }
 
 /**
@@ -86,9 +106,9 @@ export function paramsSerializer(params = {}) {
  * @param {String} url  url字符串
  */
 export function getURLParams(url) {
-  const search = url.split('?')[1]
+  const search = url.split("?")[1];
   if (!search) {
-    return {}
+    return {};
   }
   return JSON.parse(
     '{"' +
@@ -97,96 +117,105 @@ export function getURLParams(url) {
         .replace(/&/g, '","')
         .replace(/=/g, '":"') +
       '"}'
-  )
+  );
 }
 
 // 深克隆
 export function deepClone(source) {
-  if (typeof source !== 'object' || source === null) {
-    return source
+  if (typeof source !== "object" || source === null) {
+    return source;
   }
-  const target = Array.isArray(source) ? [] : {}
+  const target = Array.isArray(source) ? [] : {};
   for (const [key, value] of Object.entries(source)) {
-    target[key] = deepClone(value)
+    target[key] = deepClone(value);
   }
-  return target
+  return target;
 }
 
 // 获取元素相对于浏览器窗口边缘的的距离
 export function getOffset(elem) {
   function getLeft(o) {
     if (o == null) {
-      return 0
+      return 0;
     } else {
-      return o.offsetLeft + getLeft(o.offsetParent) + (o.offsetParent ? o.offsetParent.clientLeft : 0)
+      return (
+        o.offsetLeft +
+        getLeft(o.offsetParent) +
+        (o.offsetParent ? o.offsetParent.clientLeft : 0)
+      );
     }
   }
 
   function getTop(o) {
     if (o == null) {
-      return 0
+      return 0;
     } else {
-      return o.offsetTop + getTop(o.offsetParent) + (o.offsetParent ? o.offsetParent.clientTop : 0)
+      return (
+        o.offsetTop +
+        getTop(o.offsetParent) +
+        (o.offsetParent ? o.offsetParent.clientTop : 0)
+      );
     }
   }
-  return {left: getLeft(elem), top: getTop(elem)}
+  return { left: getLeft(elem), top: getTop(elem) };
 }
 
 // 节流
 export function throttle(fn, interval = 100) {
-  let timer = null
+  let timer = null;
   return function() {
-    const context = this
-    const args = arguments
+    const context = this;
+    const args = arguments;
     if (!timer) {
       timer = setTimeout(() => {
-        timer = null
-        fn.apply(context, args)
-      }, interval)
+        timer = null;
+        fn.apply(context, args);
+      }, interval);
     }
-  }
+  };
 }
 
 // 防抖
 export function debounce(fn, interval = 100) {
-  let timer = null
+  let timer = null;
   return function() {
-    const context = this
-    const args = arguments
+    const context = this;
+    const args = arguments;
     if (timer) {
-      clearTimeout(timer)
+      clearTimeout(timer);
     }
     timer = setTimeout(() => {
-      fn.apply(context, args)
-    }, interval)
-  }
+      fn.apply(context, args);
+    }, interval);
+  };
 }
 
 //form表单格式转换
 export function stringifyParms(params) {
   return Object.keys(params)
     .sort()
-    .map(key => key + '=' + params[key])
-    .join('&')
+    .map(key => key + "=" + params[key])
+    .join("&");
 }
 // 判断数据类型
-export const getType = value => (value ? value.constructor.name.toLowerCase() : value)
+export const getType = value =>
+  value ? value.constructor.name.toLowerCase() : value;
 
 // 加载第三方脚本
 export function loadScript(src, callback = (err, res) => {}) {
-  const existScript = document.getElementById(src)
+  const existScript = document.getElementById(src);
   if (existScript) {
-    callback(null, existScript)
+    callback(null, existScript);
   } else {
-    const script = document.createElement('script')
-    script.src = src
-    script.id = src
-    document.body.appendChild(script)
+    const script = document.createElement("script");
+    script.src = src;
+    script.id = src;
+    document.body.appendChild(script);
     script.onload = function() {
-      callback(null, script)
-    }
+      callback(null, script);
+    };
     script.onerror = function() {
-      callback(new Error(`“${src}”加载失败`), script)
-    }
+      callback(new Error(`“${src}”加载失败`), script);
+    };
   }
 }

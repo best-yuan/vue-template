@@ -8,7 +8,7 @@ export default {
   components: {},
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {},
@@ -16,7 +16,7 @@ export default {
   mounted() {},
 
   methods: {}
-}
+};
 </script>
 <style lang="scss" scoped>
 .app-container {

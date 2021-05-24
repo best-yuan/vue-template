@@ -9,12 +9,12 @@
   </div>
 </template>
 <script>
-import '@/utils/service' //解决引入stroe undefind问题。
-import TabBar from '@/components/TabBar'
+import "@/utils/service"; //解决引入stroe undefind问题。
+import TabBar from "@/components/TabBar";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TabBar
   }
-}
+};
 </script>

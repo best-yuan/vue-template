@@ -1,14 +1,14 @@
 module.exports = {
-  presets: [['@vue/cli-plugin-babel/preset', {useBuiltIns: 'entry'}]],
+  presets: [["@vue/cli-plugin-babel/preset", { useBuiltIns: "entry" }]],
   plugins: [
     [
-      'import',
+      "import",
       {
-        libraryName: 'vant',
-        libraryDirectory: 'es',
+        libraryName: "vant",
+        libraryDirectory: "es",
         style: true
       },
-      'vant'
+      "vant"
     ]
   ]
-}
+};

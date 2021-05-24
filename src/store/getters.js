@@ -3,5 +3,5 @@ const getters = {
   token: state => state.user.token,
   userInfo: state => state.user.userInfo,
   loginStatus: state => state.user.loginStatus
-}
-export default getters
+};
+export default getters;

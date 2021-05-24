@@ -1,5 +1,5 @@
-import * as user from './modules/user'
+import * as user from "./modules/user";
 
-const api = {user}
+const api = { user };
 
-export default api
+export default api;
