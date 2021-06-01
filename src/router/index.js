@@ -25,7 +25,17 @@ const createRouter = () =>
   new Router({
     // mode: 'history', // 如果你是 history模式 需要配置vue.config.js publicPath
     // base: '/app/',
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior(to, from, savedPosition) {
+      // keep-alive 返回缓存页面后记录浏览位置
+      if (savedPosition && to.meta.keepAlive) {
+        return savedPosition;
+      } // 异步滚动操作
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve({ x: 0, y: 1 });
+        }, 0);
+      });
+    },
     routes: router
   });
 
